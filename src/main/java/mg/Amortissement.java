@@ -1,6 +1,7 @@
 package mg;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public abstract class Amortissement {
     private double valeurBien;
@@ -22,11 +23,19 @@ public abstract class Amortissement {
 
     public abstract LigneAmortissement getLigneAmortissement(int annee);
 
-    public abstract LigneAmortissement[] getLignesAmortissement();
+    public List<LigneAmortissement> getLignesAmortissement() {
+        List<LigneAmortissement> lignesAmortissement = new java.util.ArrayList<>();
+        for (int i = getDateMiseEnService().getYear(); i <= getAnneeFinAmortissement(); i++) {
+            lignesAmortissement.add(getLigneAmortissement(i));
+        }
+        return lignesAmortissement;
+    }
 
     public double getTauxAmortissement() {
         return 100/getAnneeDeVie()*getCoefficient();
     }
+
+    public abstract int getAnneeFinAmortissement();
 
     // Getters and setters
     public double getValeurBien() {
@@ -88,8 +97,8 @@ public abstract class Amortissement {
     public String toString() {
         StringBuilder t = new StringBuilder();
         t.append("Année\t Valeur brute\t Taux d'amortissement\t Amortissement cumulé début année\t Dotation\t Amortissement cumulé fin année\t Valeur nette\n");
-        for (int i = 0; i < getLignesAmortissement().length; i++) {
-            t.append(getLignesAmortissement()[i].toString()).append("\n");
+        for (int i = 0; i < getLignesAmortissement().size(); i++) {
+            t.append(getLignesAmortissement().get(i).toString()).append("\n");
         }
         return t.toString();
     }

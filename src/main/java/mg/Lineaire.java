@@ -7,11 +7,16 @@ public class Lineaire extends Amortissement {
         super(valeurBien, anneeDeVie, dateAchat, dateMiseEnService);
     }
 
-    public double getNbJourUtilisationPremiereAnnee() {
+    private double getNbJourUtilisationPremiereAnnee() {
         return (NB_JOURS_MOIS - getDateMiseEnService().getDayOfMonth()) + (NB_MOIS_ANNEE - getDateMiseEnService().getMonthValue() - 1) * NB_JOURS_MOIS;
     }
 
-    public double getDotation(int annee) {
+    @Override
+    public int getAnneeFinAmortissement() {
+        return (int) (getDateMiseEnService().getYear() + getAnneeDeVie());
+    }
+
+    private double getDotation(int annee) {
         if (annee < getDateMiseEnService().getYear() || annee > getDateMiseEnService().getYear() + getAnneeDeVie()) {
             throw new IllegalArgumentException("L'année doit être comprise entre " + getDateMiseEnService().getYear() + " et " + (getDateMiseEnService().getYear() + getAnneeDeVie()));
         }
@@ -40,14 +45,5 @@ public class Lineaire extends Amortissement {
                 getDotation(annee),
                 amortissementCumuleFinAnnee,
                 getValeurBien() - amortissementCumuleFinAnnee);
-    }
-
-    @Override
-    public LigneAmortissement[] getLignesAmortissement() {
-        LigneAmortissement[] lignesAmortissement = new LigneAmortissement[(int) getAnneeDeVie() + 1];
-        for (int i = getDateMiseEnService().getYear(); i <= getDateMiseEnService().getYear() + getAnneeDeVie(); i++) {
-            lignesAmortissement[i - getDateMiseEnService().getYear()] = getLigneAmortissement(i);
-        }
-        return lignesAmortissement;
     }
 }

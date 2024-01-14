@@ -99,7 +99,7 @@ public class LigneAmortissement {
 
     @Override
     public String toString() {
-        return annee + "\t\t" + valeurBrute + "\t\t\t" + tauxAmortissement + "\t\t\t\t\t" +
-                amortissementCumuleDebutAnnee + "\t\t\t\t\t\t\t\t\t" + dotation + "\t\t" + amortissementCumuleFinAnnee + "\t\t\t\t\t\t\t" + valeurNette;
+        return String.format("%d\t\t%.2f\t\t%.2f\t\t\t\t%.2f\t\t\t\t\t\t\t\t%.2f\t\t\t%.2f\t\t\t\t\t\t\t%.2f",
+                annee, valeurBrute, tauxAmortissement, amortissementCumuleDebutAnnee, dotation, amortissementCumuleFinAnnee, valeurNette);
     }
 }
