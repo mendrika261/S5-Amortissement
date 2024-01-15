@@ -7,8 +7,8 @@ public class Lineaire extends Amortissement {
         super(valeurBien, anneeDeVie, dateAchat, dateMiseEnService);
     }
 
-    private double getNbJourUtilisationPremiereAnnee() {
-        return (NB_JOURS_MOIS - getDateMiseEnService().getDayOfMonth()) + (NB_MOIS_ANNEE - getDateMiseEnService().getMonthValue() - 1) * NB_JOURS_MOIS;
+    public double getNbJourUtilisationPremiereAnnee() {
+        return (NB_JOURS_MOIS - getDateMiseEnService().getDayOfMonth()) +( (NB_MOIS_ANNEE - getDateMiseEnService().getMonthValue() -1) * NB_JOURS_MOIS) ;
     }
 
     @Override

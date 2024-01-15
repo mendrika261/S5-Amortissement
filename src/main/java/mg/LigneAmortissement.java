@@ -32,7 +32,7 @@ public class LigneAmortissement {
     }
 
     public double getValeurBrute() {
-        return valeurBrute;
+        return Utils.round( valeurBrute);
     }
 
     public void setValeurBrute(double valeurBrute) {
@@ -43,7 +43,7 @@ public class LigneAmortissement {
     }
 
     public double getTauxAmortissement() {
-        return tauxAmortissement;
+        return  Utils.round(tauxAmortissement);
     }
 
     public void setTauxAmortissement(double tauxAmortissement) {
@@ -54,7 +54,7 @@ public class LigneAmortissement {
     }
 
     public double getAmortissementCumuleDebutAnnee() {
-        return amortissementCumuleDebutAnnee;
+        return Utils.round(amortissementCumuleDebutAnnee);
     }
 
     public void setAmortissementCumuleDebutAnnee(double amortissementCumuleDebutAnnee) {
@@ -65,7 +65,7 @@ public class LigneAmortissement {
     }
 
     public double getDotation() {
-        return dotation;
+        return  Utils.round(dotation);
     }
 
     public void setDotation(double dotation) {
@@ -76,7 +76,7 @@ public class LigneAmortissement {
     }
 
     public double getAmortissementCumuleFinAnnee() {
-        return amortissementCumuleFinAnnee;
+        return  Utils.round(amortissementCumuleFinAnnee);
     }
 
     public void setAmortissementCumuleFinAnnee(double amortissementCumuleFinAnnee) {
@@ -87,14 +87,11 @@ public class LigneAmortissement {
     }
 
     public double getValeurNette() {
-        return valeurNette;
+        return Utils.round(valeurNette);
     }
 
     public void setValeurNette(double valeurNette) {
-        if (valeurNette < 0) {
-            throw new IllegalArgumentException("La valeur doit être positive");
-        }
-        this.valeurNette = valeurNette;
+        this.valeurNette = Math.abs(valeurNette);
     }
 
     @Override

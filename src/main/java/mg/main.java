@@ -18,10 +18,10 @@ public class main {
         System.out.println(lineaire);
 
         Degressif degressif = new Degressif(
-                45000,
+                120000,
                 5,
-                LocalDate.of(2024, 6, 29),
-                LocalDate.of(2024, 7, 1));
+                LocalDate.of(2024, 7, 15),
+                LocalDate.of(2024, 8, 15));
         degressif.setCoefficient(1.75); // variable prédéfinie apetraka arakaraky ny durée de vie
 
         System.out.println(degressif);

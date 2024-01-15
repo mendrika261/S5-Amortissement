@@ -25,9 +25,12 @@ public abstract class Amortissement {
 
     public List<LigneAmortissement> getLignesAmortissement() {
         List<LigneAmortissement> lignesAmortissement = new java.util.ArrayList<>();
-        for (int i = getDateMiseEnService().getYear(); i <= getAnneeFinAmortissement(); i++) {
-            lignesAmortissement.add(getLigneAmortissement(i));
+        int annee = getDateMiseEnService().getYear();
+        while (getLigneAmortissement(annee).getAmortissementCumuleFinAnnee() < getValeurBien()) {
+            lignesAmortissement.add(getLigneAmortissement(annee));
+            annee++;
         }
+        lignesAmortissement.add(getLigneAmortissement(annee));
         return lignesAmortissement;
     }
 
@@ -78,6 +81,9 @@ public abstract class Amortissement {
     public void setDateMiseEnService(LocalDate dateMiseEnService) {
         if (dateMiseEnService == null) {
             throw new IllegalArgumentException("La date ne doit pas être nulle");
+        }
+        if (dateMiseEnService.isBefore(getDateAchat())) {
+            throw new IllegalArgumentException("La date de mise en service doit être après la date d'achat");
         }
         this.dateMiseEnService = dateMiseEnService;
     }

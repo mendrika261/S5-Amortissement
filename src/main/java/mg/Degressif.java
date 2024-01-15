@@ -22,16 +22,18 @@ public class Degressif extends Amortissement {
 
     @Override
     public LigneAmortissement getLigneAmortissement(int annee) {
-        if(annee < getDateMiseEnService().getYear() || annee > getAnneeFinAmortissement()) {
+        if (annee < getDateMiseEnService().getYear()-1 || annee > getAnneeFinAmortissement()) {
             throw new IllegalArgumentException("L'année doit être comprise entre " + getDateMiseEnService().getYear() + " et " + getAnneeFinAmortissement());
         }
 
         double amortissementCumuleDebutAnnee = 0;
-        double dotation = getValeurBien() * getTauxAmortissement() / 100 * (getNbMoisUtilisationPremiereAnnee() / 12);
-        if (annee > getDateMiseEnService().getYear()) {
+        double dotation = 0;
+        if (annee >= getDateMiseEnService().getYear()) {
             amortissementCumuleDebutAnnee = getLigneAmortissement(annee - 1).getAmortissementCumuleFinAnnee();
             if (annee > getAnneeFinAmortissement() - getTauxLineaire()) {
                 dotation = getLigneAmortissement(getAnneeFinAmortissement() - getTauxLineaire()).getValeurNette() / getTauxLineaire();
+            } else if (annee == getDateMiseEnService().getYear()) {
+                dotation = getValeurBien() * getTauxAmortissement() / 100 * (getNbMoisUtilisationPremiereAnnee() / 12);
             } else {
                 dotation = getLigneAmortissement(annee-1).getValeurNette() * getTauxAmortissement() / 100;
             }
